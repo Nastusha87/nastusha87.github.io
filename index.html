@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://vkontakte.ru/js/api/openapi.js"></script>
+  <title>Тест1000</title>
+</head>
+<body>
+
+  <script>
+    $(document).ready(function () {
+      VK.init({
+       apiId: 51459138
+      });
+
+    VK.Auth.login( function (response) {
+
+    console.log(response);
+
+    const hello = document.createElement("div");
+    hello.innerText = `Имя: ${response.session.user.first_name} Фамилия: ${response.session.user.last_name}`;
+    document.body.appendChild(hello);
+
+    if (response.status === 'connected') { // авторизация прошла успешно
+
+    VK.Api.call(
+      'users.get', {"fields": "photo_max_orig, sex, city, country, online", v: '5.131'}, function (data) {
+       console.log(data);
+   });
+   }
+   VK.access.PHOTOS|VK.access.FRIENDS
+  });
+  });
+
+ </script>
+
+</body>
+</html>
